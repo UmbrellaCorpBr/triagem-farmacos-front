@@ -23,11 +23,10 @@ export default function LoginScreen() {
 
     try {
       if (validateLogin(email.trim().toLowerCase(), password.trim())){
-        console.log("funcionando")
-        // navigation.reset({
-        //   index: 0,
-        //   routes: [{name: "PokemonList"}],
-        // })
+        navigation.reset({
+          index: 0,
+          routes: [{name: "InitialPage"}],
+        })
       }
       else {
         setPassword("")
