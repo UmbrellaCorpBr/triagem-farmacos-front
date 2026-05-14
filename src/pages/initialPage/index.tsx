@@ -29,11 +29,6 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 
-function getTypeColor(type: string) {
- return TYPE_COLORS[type] ?? '#A8A8A8';
-}
-
-
 export default function InitialPageScreen() {
  const theme = useTheme();
  const styles = createStyles(theme);
@@ -46,33 +41,9 @@ export default function InitialPageScreen() {
    })
  }
 
-
-//  const renderItem = ({ item }: { item: PokemonListItemUI }) => (
-//    <TouchableOpacity
-//      style={styles.card}
-//      activeOpacity={0.8}
-//      onPress={() => {
-//         setLastViewedPokemon(item)
-//         navigation.navigate('PokemonDetail', { id: item.id })
-//       }
-//     }
-//    >
-//      <View style={styles.cardLeft}>
-//        <Text style={styles.cardName}>{item.name} {favoriteIds.includes(item.id) ? '★' : '☆'}</Text>
-//        <View style={styles.typeContainer}>
-//          {item.types.map((type) => (
-//            <View
-//              key={`${item.id}-${type}`}
-//              style={[styles.typeBadge, { backgroundColor: getTypeColor(type) }]}
-//            >
-//              <Text style={styles.typeText}>{type}</Text>
-//            </View>
-//          ))}
-//        </View>
-//      </View>
-//      <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
-//    </TouchableOpacity>
-//  );
+ function navigateToPatientsList(){
+  navigation.navigate("ListPatients")
+ }
 
  return (
    <View style={styles.container}>
@@ -88,7 +59,7 @@ export default function InitialPageScreen() {
      <TouchableOpacity
         style={[styles.card, { backgroundColor: '#2979FF' }]}
         activeOpacity={0.85}
-        onPress={() => console.log('Card Pressed')}
+        onPress={navigateToPatientsList}
         >
         <View style={styles.textContainer}>
             <Text style={styles.title}>Pacientes</Text>
