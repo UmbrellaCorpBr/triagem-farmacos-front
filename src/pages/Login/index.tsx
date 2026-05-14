@@ -26,7 +26,7 @@ export default function LoginScreen() {
       if (validateLogin(email.trim().toLowerCase(), password.trim())){
         navigation.reset({
           index: 0,
-          routes: [{name: "InitialPage"}],
+          routes: [{name: "List"}],
         })
       }
       else {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
     View,
     Text,
@@ -8,6 +9,8 @@ import {
 } from 'react-native';
 
 import { getPatients } from '../../../services/patientService';
+import { RootStackParamList } from '../../../routes';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type Patient = {
     id: number;
@@ -17,12 +20,19 @@ type Patient = {
 
 export default function PatientListScreen() {
     const [patients, setPatients] = useState<Patient[]>([]);
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'List'>>();
+
 
     function loadPatients() {
         const data = getPatients() as Patient[];
         setPatients(data);
     }
-    
+
+    function handleNavigateToCreate() {
+        console.log('Navegando para a tela de criação de paciente');
+        navigation.navigate('Create');
+    }
+
     useEffect(() => {
         loadPatients();
     }, []);
@@ -42,7 +52,7 @@ export default function PatientListScreen() {
             </View>
 
             <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>
+                <Text style={styles.buttonText} onPress={handleNavigateToCreate}>
                     + Novo Paciente
                 </Text>
             </TouchableOpacity>
