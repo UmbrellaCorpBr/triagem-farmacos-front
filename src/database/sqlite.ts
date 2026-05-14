@@ -1,3 +1,3 @@
 import * as SQLite from 'expo-sqlite'
 
-export const db = SQLite.openDatabaseSync('pokedex.db')
+export const db = SQLite.openDatabaseSync('triagem_farmacos.db')
