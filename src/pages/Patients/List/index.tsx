@@ -1,28 +1,41 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
     View,
     Text,
     FlatList,
     TouchableOpacity,
-    StyleSheet
 } from 'react-native';
+import { createStyles } from './styles';
+import { useTheme } from '../../../global/themes';
 
 import { getPatients } from '../../../services/patientService';
+import { RootStackParamList } from '../../../routes';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type Patient = {
     id: number;
-    nome: string;
-    email: string;
+    name: number;
+    age: number;
+    gender: string;
 };
 
 export default function PatientListScreen() {
     const [patients, setPatients] = useState<Patient[]>([]);
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'ListPatients'>>();
+    const theme = useTheme();
+    const styles = createStyles(theme);
 
     function loadPatients() {
         const data = getPatients() as Patient[];
         setPatients(data);
     }
-    
+
+    function handleNavigateToCreate() {
+        console.log('Navegando para a tela de criação de paciente');
+        navigation.navigate('CreatePatients');
+    }
+
     useEffect(() => {
         loadPatients();
     }, []);
@@ -41,7 +54,7 @@ export default function PatientListScreen() {
                 </Text>
             </View>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={handleNavigateToCreate}>
                 <Text style={styles.buttonText}>
                     + Novo Paciente
                 </Text>
@@ -62,11 +75,15 @@ export default function PatientListScreen() {
                         <View style={styles.card}>
                             <View>
                                 <Text style={styles.patientName}>
-                                    {item.nome}
+                                    Nome: {item.name}
                                 </Text>
 
-                                <Text style={styles.patientEmail}>
-                                    {item.email}
+                                <Text style={styles.patientData}>
+                                    Idade: {item.age}
+                                </Text>
+
+                                <Text style={styles.patientData}>
+                                    Gênero: {item.gender}
                                 </Text>
                             </View>
                         </View>
@@ -76,83 +93,3 @@ export default function PatientListScreen() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F5F7FA',
-        paddingHorizontal: 20,
-        paddingTop: 60,
-    },
-
-    header: {
-        marginBottom: 24,
-    },
-
-    title: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: '#1E293B',
-    },
-
-    subtitle: {
-        marginTop: 6,
-        fontSize: 16,
-        color: '#64748B',
-    },
-
-    button: {
-        backgroundColor: '#2563EB',
-        height: 50,
-        borderRadius: 12,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 24,
-    },
-
-    buttonText: {
-        color: '#FFF',
-        fontSize: 16,
-        fontWeight: '600',
-    },
-
-    card: {
-        backgroundColor: '#FFF',
-        padding: 18,
-        borderRadius: 14,
-        marginBottom: 14,
-
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.08,
-        shadowRadius: 4,
-
-        elevation: 3,
-    },
-
-    patientName: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#0F172A',
-    },
-
-    patientEmail: {
-        marginTop: 4,
-        fontSize: 14,
-        color: '#64748B',
-    },
-
-    emptyContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    emptyText: {
-        fontSize: 16,
-        color: '#94A3B8',
-    },
-});
