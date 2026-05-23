@@ -5,10 +5,10 @@ import LoginScreen from './src/pages/Login';
 import AppNavigator from './src/routes';
 import { NavigationContainer } from '@react-navigation/native';
 import { initDatabase } from './src/database/init';
-import { seedUser } from './src/database/seedUsers';
+import { seedTables } from './src/database/seedTables';
 
 initDatabase()
-seedUser()
+seedTables()
 
 export default function App() {
   // useEffect(() => {
