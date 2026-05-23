@@ -2,12 +2,14 @@ import React from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from '../pages/Login';
 import InitialPageScreen from '../pages/initialPage';
-import List from '../pages/Patients/List';
+import PatientRegisterScreen from '../pages/Patients/Create';
+import PatientListScreen from '../pages/Patients/List';
 
 export type RootStackParamList = {
     Login: undefined;
     InitialPage: undefined;
     ListPatients: undefined;
+    CreatePatients: undefined;
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -20,7 +22,8 @@ export default function AppNavigator(){
             >
             <Stack.Screen name="Login" component={LoginScreen}/>
             <Stack.Screen name="InitialPage" component={InitialPageScreen}/>
-            <Stack.Screen name="ListPatients" component={List}/>
+            <Stack.Screen name="CreatePatients" component={PatientRegisterScreen}/>
+            <Stack.Screen name="ListPatients" component={PatientListScreen}/>
         </Stack.Navigator>
     )
 }
