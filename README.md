@@ -177,9 +177,5 @@ Esses conceitos (componentes, hooks e navegação) formam a base que depois ser�
 - Evoluir o layout e a experiência de uso.
 
 
-## Prints do aplicativo
--
--<img width="328" height="636" alt="image" src="https://github.com/user-attachments/assets/53b48462-3352-4c43-a361-1ca8201f76d4" />
-
 
 
