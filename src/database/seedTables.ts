@@ -11,7 +11,8 @@ function seedUsers() {
         INSERT OR IGNORE INTO users (email, password, created_at)
         VALUES (?, ?, ?);
         `,
-        ['guilherme@email.com', '123456', new Date().toISOString()]
+        ['guilherme@email.com', '123456', new Date().toISOString()],
+        
     )
 }
 
