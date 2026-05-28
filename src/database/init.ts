@@ -25,6 +25,26 @@ export function initDatabase() {
             type TEXT NOT NULL,
             risk_group TEXT NOT NULL
         );
+        `,
+        `
+        CREATE TABLE IF NOT EXISTS assessments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            patient_id INT NOT NULL,
+            created_at TEXT NOT NULL,
+            FOREIGN KEY (patient_id) REFERENCES patients (id)
+        )
+        `,
+        `
+        CREATE TABLE IF NOT EXISTS assessment_drugs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            assessment_id INT NOT NULL,
+            drug_id INT NOT NULL,
+            dosage TEXT NOT NULL,
+            use_frequency TEXT NOT NULL,
+            use_until TEXT NOT NULL,
+            FOREIGN KEY (assessment_id) REFERENCES assessments (id),
+            FOREIGN KEY (drug_id) REFERENCES drugs (id)
+        );
         `
     ]
 
