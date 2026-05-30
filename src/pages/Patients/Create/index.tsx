@@ -8,8 +8,10 @@ import {
     Alert,
     ScrollView,
 } from 'react-native';
+
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { RootStackParamList } from '../../../routes';
 
 import styles from './styles';
@@ -17,7 +19,14 @@ import styles from './styles';
 import { savePatient } from '../../../services/patientService';
 
 export default function PatientRegisterScreen() {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'CreatePatients'>> ();
+
+    const navigation = useNavigation<
+        NativeStackNavigationProp<
+            RootStackParamList,
+            'CreatePatients'
+        >
+    >();
+
     const [nome, setNome] = useState('');
     const [idade, setIdade] = useState('');
     const [sexo, setSexo] = useState('');
@@ -39,7 +48,10 @@ export default function PatientRegisterScreen() {
 
         const idadeNumero = Number(idade);
 
-        if (isNaN(idadeNumero) || idadeNumero <= 0) {
+        if (
+            isNaN(idadeNumero) ||
+            idadeNumero <= 0
+        ) {
             Alert.alert(
                 'Idade inválida',
                 'Informe uma idade válida.'
@@ -52,7 +64,7 @@ export default function PatientRegisterScreen() {
             id: Date.now(),
             nome: nome.trim(),
             idade: idadeNumero,
-            sexo: sexo.trim(),
+            sexo,
         };
 
         savePatient(newPatient);
@@ -63,11 +75,11 @@ export default function PatientRegisterScreen() {
         );
 
         navigation.reset({
-          index: 0,
-          routes: [{name: "ListPatients"}],
-        })
+            index: 0,
+            routes: [{ name: 'ListPatients' }],
+        });
 
-        //clearFields();
+        clearFields();
     }
 
     function clearFields() {
@@ -77,12 +89,14 @@ export default function PatientRegisterScreen() {
     }
 
     return (
+
         <ScrollView
             contentContainerStyle={styles.container}
             showsVerticalScrollIndicator={false}
         >
 
             <View style={styles.header}>
+
                 <Text style={styles.title}>
                     Cadastro de Paciente
                 </Text>
@@ -90,6 +104,7 @@ export default function PatientRegisterScreen() {
                 <Text style={styles.subtitle}>
                     Preencha os dados do paciente
                 </Text>
+
             </View>
 
             <View style={styles.form}>
@@ -121,20 +136,61 @@ export default function PatientRegisterScreen() {
                     Sexo
                 </Text>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Masculino / Feminino"
-                    value={sexo}
-                    onChangeText={setSexo}
-                />
+                <View style={styles.genderContainer}>
+
+                    <TouchableOpacity
+                        style={[
+                            styles.genderButton,
+                            sexo === 'M' &&
+                            styles.genderButtonSelected
+                        ]}
+                        onPress={() => setSexo('M')}
+                    >
+
+                        <Text
+                            style={[
+                                styles.genderText,
+                                sexo === 'M' &&
+                                styles.genderTextSelected
+                            ]}
+                        >
+                            Masculino
+                        </Text>
+
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[
+                            styles.genderButton,
+                            sexo === 'F' &&
+                            styles.genderButtonSelected
+                        ]}
+                        onPress={() => setSexo('F')}
+                    >
+
+                        <Text
+                            style={[
+                                styles.genderText,
+                                sexo === 'F' &&
+                                styles.genderTextSelected
+                            ]}
+                        >
+                            Feminino
+                        </Text>
+
+                    </TouchableOpacity>
+
+                </View>
 
                 <TouchableOpacity
                     style={styles.button}
                     onPress={handleRegisterPatient}
                 >
+
                     <Text style={styles.buttonText}>
                         Cadastrar Paciente
                     </Text>
+
                 </TouchableOpacity>
 
             </View>
