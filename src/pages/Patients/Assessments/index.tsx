@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../routes';
 import { getPatientAssessments } from '../../../services/assessmentService';
 import { AssessmentWithDrugs } from '../../../database/entities';
+import { classifyAssessmentRisk } from '../../../services/riskClassifier';
 import { useTheme } from '../../../global/themes';
 import { createStyles } from './styles';
 
@@ -38,9 +39,16 @@ export default function PatientAssessmentsScreen() {
     }, [patientId]);
 
     function renderAssessment({ item }: { item: AssessmentWithDrugs }) {
+        const risk = classifyAssessmentRisk(item.drugs);
         return (
             <View style={styles.card}>
-                <Text style={styles.cardDate}>{formatDate(item.created_at)}</Text>
+                <View style={styles.cardTopRow}>
+                    <Text style={styles.cardDate}>{formatDate(item.created_at)}</Text>
+                    <View style={[styles.riskBadge, styles[`risk_${risk.level}` as keyof typeof styles]]}>
+                        <Text style={styles.riskBadgeText}>{risk.label}</Text>
+                    </View>
+                </View>
+                <Text style={styles.riskReason}>{risk.reason}</Text>
 
                 {item.drugs.map(drug => (
                     <View key={drug.id} style={styles.drugItem}>
@@ -49,6 +57,7 @@ export default function PatientAssessmentsScreen() {
                             <Text style={styles.drugType}>{drug.drug_type}</Text>
                         </View>
                         <View style={styles.drugDetails}>
+                            <Text style={styles.drugDetail}>Grupo de risco: {drug.risk_group}</Text>
                             <Text style={styles.drugDetail}>Dosagem: {drug.dosage}</Text>
                             <Text style={styles.drugDetail}>Frequência: {drug.use_frequency}</Text>
                             <Text style={[

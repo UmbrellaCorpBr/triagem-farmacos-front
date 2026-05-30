@@ -70,11 +70,47 @@ export const createStyles = (theme: Theme) => StyleSheet.create({
         elevation: 3,
     },
 
+    cardTopRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 4,
+    },
+
     cardDate: {
         fontSize: 16,
         fontWeight: '700',
         color: '#1E293B',
+    },
+
+    riskBadge: {
+        paddingHorizontal: 12,
+        paddingVertical: 4,
+        borderRadius: 20,
+    },
+
+    risk_green: {
+        backgroundColor: '#DCFCE7',
+    },
+
+    risk_yellow: {
+        backgroundColor: '#FEF9C3',
+    },
+
+    risk_red: {
+        backgroundColor: '#FEE2E2',
+    },
+
+    riskBadgeText: {
+        fontSize: 13,
+        fontWeight: '700',
+    },
+
+    riskReason: {
+        fontSize: 12,
+        color: '#64748B',
         marginBottom: 12,
+        fontStyle: 'italic',
     },
 
     drugItem: {
