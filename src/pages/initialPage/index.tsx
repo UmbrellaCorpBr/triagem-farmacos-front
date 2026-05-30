@@ -45,6 +45,10 @@ export default function InitialPageScreen() {
   navigation.navigate("ListPatients")
  }
 
+ function navigateToAssessmentsRegister(){
+  navigation.navigate("CreateAssessments")
+ }
+
  return (
    <View style={styles.container}>
      <Text style={styles.headerTitle}>Página Inicial</Text>
@@ -71,6 +75,26 @@ export default function InitialPageScreen() {
 
         <MaterialIcons
             name="person"
+            size={38}
+            color="#FFF"
+        />
+     </TouchableOpacity>
+
+     <TouchableOpacity
+        style={[styles.card, { backgroundColor: 'green' }]}
+        activeOpacity={0.85}
+        onPress={navigateToAssessmentsRegister}
+        >
+        <View style={styles.textContainer}>
+            <Text style={styles.title}>Avaliações</Text>
+
+            <Text style={styles.description}>
+            Cadastre <Text style={styles.bold}>avaliações</Text>
+            </Text>
+        </View>
+
+        <MaterialIcons
+            name="assignment"
             size={38}
             color="#FFF"
         />
