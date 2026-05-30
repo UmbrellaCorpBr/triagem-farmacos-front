@@ -63,6 +63,7 @@ export const createStyles = (theme: Theme) => StyleSheet.create({
         borderRadius: 16,
         padding: 16,
         marginBottom: 14,
+        borderLeftWidth: 5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.08,
@@ -73,12 +74,20 @@ export const createStyles = (theme: Theme) => StyleSheet.create({
     cardTopRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 4,
+        alignItems: 'flex-start',
+        marginBottom: 12,
+    },
+
+    cardLabel: {
+        fontSize: 11,
+        fontWeight: '600',
+        color: '#94A3B8',
+        letterSpacing: 0.8,
+        marginBottom: 2,
     },
 
     cardDate: {
-        fontSize: 16,
+        fontSize: 22,
         fontWeight: '700',
         color: '#1E293B',
     },
@@ -89,28 +98,28 @@ export const createStyles = (theme: Theme) => StyleSheet.create({
         borderRadius: 20,
     },
 
-    risk_green: {
-        backgroundColor: '#DCFCE7',
-    },
-
-    risk_yellow: {
-        backgroundColor: '#FEF9C3',
-    },
-
-    risk_red: {
-        backgroundColor: '#FEE2E2',
-    },
-
     riskBadgeText: {
         fontSize: 13,
         fontWeight: '700',
     },
 
-    riskReason: {
-        fontSize: 12,
-        color: '#64748B',
+    justificativaBox: {
+        backgroundColor: '#F8FAFC',
+        borderRadius: 10,
+        padding: 12,
         marginBottom: 12,
-        fontStyle: 'italic',
+    },
+
+    justificativaLabel: {
+        fontSize: 11,
+        fontWeight: '600',
+        color: '#94A3B8',
+        marginBottom: 4,
+    },
+
+    justificativaText: {
+        fontSize: 13,
+        color: '#475569',
     },
 
     drugItem: {

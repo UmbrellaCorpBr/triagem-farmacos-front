@@ -40,15 +40,25 @@ export default function PatientAssessmentsScreen() {
 
     function renderAssessment({ item }: { item: AssessmentWithDrugs }) {
         const risk = classifyAssessmentRisk(item.drugs);
+        const borderColor = risk.level === 'green' ? '#22C55E' : risk.level === 'yellow' ? '#EAB308' : '#EF4444';
+        const badgeColor = risk.level === 'green' ? '#DCFCE7' : risk.level === 'yellow' ? '#FEF9C3' : '#FEE2E2';
+        const badgeTextColor = risk.level === 'green' ? '#15803D' : risk.level === 'yellow' ? '#A16207' : '#B91C1C';
+
         return (
-            <View style={styles.card}>
+            <View style={[styles.card, { borderLeftColor: borderColor }]}>
                 <View style={styles.cardTopRow}>
-                    <Text style={styles.cardDate}>{formatDate(item.created_at)}</Text>
-                    <View style={[styles.riskBadge, styles[`risk_${risk.level}` as keyof typeof styles]]}>
-                        <Text style={styles.riskBadgeText}>{risk.label}</Text>
+                    <View>
+                        <Text style={styles.cardLabel}>AVALIAÇÃO CLÍNICA</Text>
+                        <Text style={styles.cardDate}>{formatDate(item.created_at)}</Text>
+                    </View>
+                    <View style={[styles.riskBadge, { backgroundColor: badgeColor }]}>
+                        <Text style={[styles.riskBadgeText, { color: badgeTextColor }]}>{risk.label}</Text>
                     </View>
                 </View>
-                <Text style={styles.riskReason}>{risk.reason}</Text>
+                <View style={styles.justificativaBox}>
+                    <Text style={styles.justificativaLabel}>Justificativa</Text>
+                    <Text style={styles.justificativaText}>{risk.reason}</Text>
+                </View>
 
                 {item.drugs.map(drug => (
                     <View key={drug.id} style={styles.drugItem}>
