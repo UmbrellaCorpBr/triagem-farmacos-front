@@ -35,5 +35,35 @@
 
 ---
 
-- Form não pronto para cadastro de avaliações
-![alt text](assets/prints/form_avaliacao.jpeg)
+- Form para cadastro de avaliações
+![alt text](assets/prints/form_avaliacao.png)
+
+---
+
+- Selecionar paciente no medicamento
+![alt text](assets/prints/selecionar_paciente_medicamento.png)
+
+---
+
+- Selecionar medicamento
+![alt text](assets/prints/selecionar_medicamento.png)
+
+---
+
+- Calendário na parte de cadastro do medicamento
+![alt text](assets/prints/calendario_medicamento.png)
+
+---
+
+- Confirmar uso contínuo do medicamento
+![alt text](assets/prints/confirmar_uso_continuo.png)
+
+---
+
+- Medicamento cadastrado do paciente
+![alt text](assets/prints/medicamento_cadastrado.png)
+
+---
+
+- Avaliações do paciente
+![alt text](assets/prints/avaliacoes_paciente.png)

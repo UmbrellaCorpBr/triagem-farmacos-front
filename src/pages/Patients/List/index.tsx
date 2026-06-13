@@ -16,15 +16,8 @@ import { createStyles } from './styles';
 import { useTheme } from '../../../global/themes';
 
 import { getPatients } from '../../../services/patientService';
-
+import { Patient } from '../../../database/entities';
 import { RootStackParamList } from '../../../routes';
-
-type Patient = {
-    id: number;
-    name: string;
-    age: number;
-    gender: string;
-};
 
 export default function PatientListScreen() {
 
@@ -60,7 +53,12 @@ export default function PatientListScreen() {
 
         return (
 
-            <View
+            <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('PatientAssessments', {
+                    patientId: item.id,
+                    patientName: item.name,
+                })}
                 style={[
                     styles.card,
                     isMale
@@ -135,7 +133,7 @@ export default function PatientListScreen() {
 
                 </View>
 
-            </View>
+            </TouchableOpacity>
         );
     }
 

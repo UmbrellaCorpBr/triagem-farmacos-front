@@ -71,21 +71,13 @@ export default function PatientRegisterScreen() {
 
         Alert.alert(
             'Sucesso',
-            'Paciente cadastrado com sucesso.'
+            'Paciente cadastrado com sucesso.',
+            [{ text: 'OK', onPress: () => navigation.reset(
+                { index: 0, routes: 
+                    [{ name: 'InitialPage' }, { name: 'ListPatients' }] 
+                },
+            )}]
         );
-
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'ListPatients' }],
-        });
-
-        clearFields();
-    }
-
-    function clearFields() {
-        setNome('');
-        setIdade('');
-        setSexo('');
     }
 
     return (

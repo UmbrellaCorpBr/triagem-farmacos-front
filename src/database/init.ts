@@ -41,7 +41,7 @@ export function initDatabase() {
             drug_id INT NOT NULL,
             dosage TEXT NOT NULL,
             use_frequency TEXT NOT NULL,
-            use_until TEXT NOT NULL,
+            use_until TEXT,
             FOREIGN KEY (assessment_id) REFERENCES assessments (id),
             FOREIGN KEY (drug_id) REFERENCES drugs (id)
         );
