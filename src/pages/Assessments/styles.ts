@@ -14,6 +14,16 @@ export const createStyles = (theme: Theme) => StyleSheet.create({
         marginBottom: 32,
     },
 
+    backButton: {
+        marginBottom: 8,
+    },
+
+    backButtonText: {
+        fontSize: 15,
+        color: '#2563EB',
+        fontWeight: '500',
+    },
+
     title: {
         fontSize: 30,
         fontWeight: 'bold',

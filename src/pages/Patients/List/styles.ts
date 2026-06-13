@@ -9,7 +9,7 @@ export const createStyles = (theme: Theme) =>
 
         container: {
             flex: 1,
-            backgroundColor: '#d7e8fa',
+            backgroundColor: '#F5F7FA',
             paddingHorizontal: 20,
             paddingTop: 10,
         },
@@ -20,10 +20,20 @@ export const createStyles = (theme: Theme) =>
             marginBottom: 24,
         },
 
+        backButton: {
+            marginBottom: 8,
+        },
+
+        backButtonText: {
+            fontSize: 15,
+            color: '#2563EB',
+            fontWeight: '500',
+        },
+
         title: {
             fontSize: 32,
             fontWeight: '800',
-            color: '#2563EB',
+            color: '#1E293B',
         },
 
         subtitle: {
@@ -194,6 +204,23 @@ export const createStyles = (theme: Theme) =>
 
         femaleText: {
             color: '#DB2777',
+        },
+
+        filtersContainer: {
+            flexDirection: 'row',
+            gap: 8,
+            paddingBottom: 16,
+        },
+
+        filterChip: {
+            paddingHorizontal: 16,
+            paddingVertical: 5,
+            borderRadius: 999,
+        },
+
+        filterChipText: {
+            fontSize: 13,
+            fontWeight: '700',
         },
 
         riskBadge: {

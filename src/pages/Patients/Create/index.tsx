@@ -89,6 +89,10 @@ export default function PatientRegisterScreen() {
 
             <View style={styles.header}>
 
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                    <Text style={styles.backButtonText}>← Voltar</Text>
+                </TouchableOpacity>
+
                 <Text style={styles.title}>
                     Cadastro de Paciente
                 </Text>
@@ -133,43 +137,31 @@ export default function PatientRegisterScreen() {
                     <TouchableOpacity
                         style={[
                             styles.genderButton,
-                            sexo === 'M' &&
-                            styles.genderButtonSelected
+                            sexo === 'M' && styles.genderButtonMale,
                         ]}
                         onPress={() => setSexo('M')}
                     >
-
-                        <Text
-                            style={[
-                                styles.genderText,
-                                sexo === 'M' &&
-                                styles.genderTextSelected
-                            ]}
-                        >
+                        <Text style={[
+                            styles.genderText,
+                            sexo === 'M' && styles.genderTextMale,
+                        ]}>
                             Masculino
                         </Text>
-
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={[
                             styles.genderButton,
-                            sexo === 'F' &&
-                            styles.genderButtonSelected
+                            sexo === 'F' && styles.genderButtonFemale,
                         ]}
                         onPress={() => setSexo('F')}
                     >
-
-                        <Text
-                            style={[
-                                styles.genderText,
-                                sexo === 'F' &&
-                                styles.genderTextSelected
-                            ]}
-                        >
+                        <Text style={[
+                            styles.genderText,
+                            sexo === 'F' && styles.genderTextFemale,
+                        ]}>
                             Feminino
                         </Text>
-
                     </TouchableOpacity>
 
                 </View>
