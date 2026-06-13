@@ -1,10 +1,11 @@
 import { db } from '../database/sqlite';
 import { AssessmentDrugDetail, AssessmentDrugInput, AssessmentWithDrugs, Drug } from '../database/entities';
+import { classifyAssessmentRisk, RiskLevel } from './riskClassifier';
 
 export function getPatientAssessments(patient_id: number): AssessmentWithDrugs[] {
     try {
-        const assessments = db.getAllSync<{ id: number; created_at: string }>(
-            'SELECT id, created_at FROM assessments WHERE patient_id = ? ORDER BY created_at DESC',
+        const assessments = db.getAllSync<{ id: number; created_at: string; risk_level: string; risk_reason: string}>(
+            'SELECT id, created_at, risk_level, risk_reason FROM assessments WHERE patient_id = ? ORDER BY created_at DESC',
             [patient_id]
         );
         return assessments.map(assessment => {
@@ -16,6 +17,7 @@ export function getPatientAssessments(patient_id: number): AssessmentWithDrugs[]
                  WHERE ad.assessment_id = ?`,
                 [assessment.id]
             );
+
             return { ...assessment, drugs };
         });
     } catch (error) {
@@ -36,10 +38,17 @@ export function getAllDrugs(): Drug[] {
 export function saveAssessmentWithDrugs(patient_id: number, drugs: AssessmentDrugInput[]): boolean {
     try {
         db.withTransactionSync(() => {
+            const placeholders = drugs.map(() => '?').join(', ');
+            const drugDetails = db.getAllSync<Drug>(
+                `SELECT id, name, type, risk_group FROM drugs WHERE id IN (${placeholders})`,
+                drugs.map(d => d.drug_id)
+            );
+            const risk = classifyAssessmentRisk(drugDetails);
+
             const created_at = new Date().toISOString();
             db.runSync(
-                'INSERT INTO assessments (patient_id, created_at) VALUES (?, ?)',
-                [patient_id, created_at]
+                'INSERT INTO assessments (patient_id, created_at, risk_level, risk_reason) VALUES (?, ?, ?, ?)',
+                [patient_id, created_at, risk.level, risk.reason]
             );
             const result = db.getFirstSync<{ id: number }>('SELECT last_insert_rowid() as id');
             if (!result) throw new Error('Failed to insert assessment');

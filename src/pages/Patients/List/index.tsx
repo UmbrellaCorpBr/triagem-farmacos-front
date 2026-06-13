@@ -18,6 +18,8 @@ import { useTheme } from '../../../global/themes';
 import { getPatients } from '../../../services/patientService';
 import { Patient } from '../../../database/entities';
 import { RootStackParamList } from '../../../routes';
+import { RiskLevel } from '../../../services/riskClassifier';
+import { getRiskBadgeStyle } from '../../../utils/riskBadge';
 
 export default function PatientListScreen() {
 
@@ -50,6 +52,9 @@ export default function PatientListScreen() {
     function renderPatient({ item }: { item: Patient }) {
 
         const isMale = item.gender === 'M';
+        const riskBadge = item.last_risk_level
+            ? getRiskBadgeStyle(item.last_risk_level as RiskLevel)
+            : null;
 
         return (
 
@@ -108,26 +113,36 @@ export default function PatientListScreen() {
 
                     </View>
 
-                    {/* BADGE */}
-                    <View
-                        style={[
-                            styles.genderBadge,
-                            isMale
-                                ? styles.maleBadge
-                                : styles.femaleBadge
-                        ]}
-                    >
+                    {/* RIGHT SIDE */}
+                    <View style={styles.rightContent}>
 
-                        <Text
+                        <View
                             style={[
-                                styles.genderText,
+                                styles.genderBadge,
                                 isMale
-                                    ? styles.maleText
-                                    : styles.femaleText
+                                    ? styles.maleBadge
+                                    : styles.femaleBadge
                             ]}
                         >
-                            {isMale ? 'Masc' : 'Fem'}
-                        </Text>
+                            <Text
+                                style={[
+                                    styles.genderText,
+                                    isMale
+                                        ? styles.maleText
+                                        : styles.femaleText
+                                ]}
+                            >
+                                {isMale ? 'Masc' : 'Fem'}
+                            </Text>
+                        </View>
+
+                        {riskBadge && (
+                            <View style={[styles.riskBadge, { backgroundColor: riskBadge.backgroundColor }]}>
+                                <Text style={[styles.riskBadgeText, { color: riskBadge.textColor }]}>
+                                    {riskBadge.label}
+                                </Text>
+                            </View>
+                        )}
 
                     </View>
 

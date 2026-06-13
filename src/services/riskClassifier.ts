@@ -1,4 +1,4 @@
-import { AssessmentDrugDetail } from '../database/entities';
+import { Drug } from '../database/entities';
 
 export type RiskLevel = 'green' | 'yellow' | 'red';
 
@@ -17,7 +17,7 @@ function hasSystem(riskGroup: string, system: string): boolean {
     return riskGroup.includes(system);
 }
 
-export function classifyAssessmentRisk(drugs: AssessmentDrugDetail[]): RiskResult {
+export function classifyAssessmentRisk(drugs: Drug[]): RiskResult {
     if (drugs.length === 0) {
         return { level: 'green', label: 'Verde', reason: 'Nenhum medicamento na avaliação.' };
     }

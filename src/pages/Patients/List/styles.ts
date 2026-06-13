@@ -112,6 +112,11 @@ export const createStyles = (theme: Theme) =>
             alignItems: 'center',
         },
 
+        rightContent: {
+            alignItems: 'flex-end',
+            gap: 8,
+        },
+
         /* AVATAR */
 
         avatar: {
@@ -189,6 +194,17 @@ export const createStyles = (theme: Theme) =>
 
         femaleText: {
             color: '#DB2777',
+        },
+
+        riskBadge: {
+            paddingHorizontal: 14,
+            paddingVertical: 8,
+            borderRadius: 999,
+        },
+
+        riskBadgeText: {
+            fontSize: 14,
+            fontWeight: '800',
         },
 
         /* EMPTY STATE */

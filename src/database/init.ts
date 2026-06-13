@@ -31,6 +31,8 @@ export function initDatabase() {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             patient_id INT NOT NULL,
             created_at TEXT NOT NULL,
+            risk_level TEXT NOT NULL,
+            risk_reason TEXT NOT NULL,
             FOREIGN KEY (patient_id) REFERENCES patients (id)
         )
         `,
