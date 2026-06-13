@@ -6,7 +6,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../routes';
 import { getPatientAssessments } from '../../../services/assessmentService';
 import { AssessmentWithDrugs } from '../../../database/entities';
-import { classifyAssessmentRisk } from '../../../services/riskClassifier';
+import { RiskLevel } from '../../../services/riskClassifier';
+import { getRiskBadgeStyle } from '../../../utils/riskBadge';
 import { useTheme } from '../../../global/themes';
 import { createStyles } from './styles';
 
@@ -39,10 +40,8 @@ export default function PatientAssessmentsScreen() {
     }, [patientId]);
 
     function renderAssessment({ item }: { item: AssessmentWithDrugs }) {
-        const risk = classifyAssessmentRisk(item.drugs);
-        const borderColor = risk.level === 'green' ? '#22C55E' : risk.level === 'yellow' ? '#EAB308' : '#EF4444';
-        const badgeColor = risk.level === 'green' ? '#DCFCE7' : risk.level === 'yellow' ? '#FEF9C3' : '#FEE2E2';
-        const badgeTextColor = risk.level === 'green' ? '#15803D' : risk.level === 'yellow' ? '#A16207' : '#B91C1C';
+        const riskLevel = item.risk_level as RiskLevel;
+        const { backgroundColor, textColor, borderColor, label } = getRiskBadgeStyle(riskLevel);
 
         return (
             <View style={[styles.card, { borderLeftColor: borderColor }]}>
@@ -51,13 +50,13 @@ export default function PatientAssessmentsScreen() {
                         <Text style={styles.cardLabel}>AVALIAÇÃO CLÍNICA</Text>
                         <Text style={styles.cardDate}>{formatDate(item.created_at)}</Text>
                     </View>
-                    <View style={[styles.riskBadge, { backgroundColor: badgeColor }]}>
-                        <Text style={[styles.riskBadgeText, { color: badgeTextColor }]}>{risk.label}</Text>
+                    <View style={[styles.riskBadge, { backgroundColor }]}>
+                        <Text style={[styles.riskBadgeText, { color: textColor }]}>{label}</Text>
                     </View>
                 </View>
                 <View style={styles.justificativaBox}>
                     <Text style={styles.justificativaLabel}>Justificativa</Text>
-                    <Text style={styles.justificativaText}>{risk.reason}</Text>
+                    <Text style={styles.justificativaText}>{item.risk_reason}</Text>
                 </View>
 
                 {item.drugs.map(drug => (

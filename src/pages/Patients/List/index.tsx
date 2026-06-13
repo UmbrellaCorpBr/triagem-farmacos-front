@@ -5,6 +5,7 @@ import {
     Text,
     FlatList,
     TouchableOpacity,
+    ScrollView,
 } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,10 +19,29 @@ import { useTheme } from '../../../global/themes';
 import { getPatients } from '../../../services/patientService';
 import { Patient } from '../../../database/entities';
 import { RootStackParamList } from '../../../routes';
+import { RiskLevel } from '../../../services/riskClassifier';
+import { getRiskBadgeStyle } from '../../../utils/riskBadge';
 
 export default function PatientListScreen() {
 
+    type FilterOption = RiskLevel | 'none' | null;
+
     const [patients, setPatients] = useState<Patient[]>([]);
+    const [activeFilter, setActiveFilter] = useState<FilterOption>(null);
+
+    const filteredPatients = patients.filter(p => {
+        if (activeFilter === null) return true;
+        if (activeFilter === 'none') return p.last_risk_level === null;
+        return p.last_risk_level === activeFilter;
+    });
+
+    const filters: { label: string; value: FilterOption; bg: string; text: string; activeBg: string }[] = [
+        { label: 'Todos', value: null, bg: '#E0EAFF', text: '#2563EB', activeBg: '#2563EB' },
+        { label: 'Verde', value: 'green', bg: '#DCFCE7', text: '#15803D', activeBg: '#16A34A' },
+        { label: 'Amarelo', value: 'yellow', bg: '#FEF9C3', text: '#A16207', activeBg: '#CA8A04' },
+        { label: 'Vermelho', value: 'red', bg: '#FEE2E2', text: '#B91C1C', activeBg: '#DC2626' },
+        { label: 'Sem avaliação', value: 'none', bg: '#F1F5F9', text: '#64748B', activeBg: '#475569' },
+    ];
 
     const navigation = useNavigation<
         NativeStackNavigationProp<
@@ -50,6 +70,9 @@ export default function PatientListScreen() {
     function renderPatient({ item }: { item: Patient }) {
 
         const isMale = item.gender === 'M';
+        const riskBadge = item.last_risk_level
+            ? getRiskBadgeStyle(item.last_risk_level as RiskLevel)
+            : null;
 
         return (
 
@@ -108,26 +131,36 @@ export default function PatientListScreen() {
 
                     </View>
 
-                    {/* BADGE */}
-                    <View
-                        style={[
-                            styles.genderBadge,
-                            isMale
-                                ? styles.maleBadge
-                                : styles.femaleBadge
-                        ]}
-                    >
+                    {/* RIGHT SIDE */}
+                    <View style={styles.rightContent}>
 
-                        <Text
+                        <View
                             style={[
-                                styles.genderText,
+                                styles.genderBadge,
                                 isMale
-                                    ? styles.maleText
-                                    : styles.femaleText
+                                    ? styles.maleBadge
+                                    : styles.femaleBadge
                             ]}
                         >
-                            {isMale ? 'Masc' : 'Fem'}
-                        </Text>
+                            <Text
+                                style={[
+                                    styles.genderText,
+                                    isMale
+                                        ? styles.maleText
+                                        : styles.femaleText
+                                ]}
+                            >
+                                {isMale ? 'Masc' : 'Fem'}
+                            </Text>
+                        </View>
+
+                        {riskBadge && (
+                            <View style={[styles.riskBadge, { backgroundColor: riskBadge.backgroundColor }]}>
+                                <Text style={[styles.riskBadgeText, { color: riskBadge.textColor }]}>
+                                    {riskBadge.label}
+                                </Text>
+                            </View>
+                        )}
 
                     </View>
 
@@ -145,12 +178,18 @@ export default function PatientListScreen() {
 
             <View style={styles.header}>
 
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                    <Text style={styles.backButtonText}>← Voltar</Text>
+                </TouchableOpacity>
+
                 <Text style={styles.title}>
                     Pacientes
                 </Text>
 
                 <Text style={styles.subtitle}>
-                    Total cadastrados: {patients.length}
+                    {activeFilter === null
+                        ? `Total cadastrados: ${patients.length}`
+                        : `${filteredPatients.length} de ${patients.length} paciente${patients.length !== 1 ? 's' : ''}`}
                 </Text>
 
             </View>
@@ -169,22 +208,59 @@ export default function PatientListScreen() {
 
             </TouchableOpacity>
 
+            {/* FILTROS */}
+
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={{ flexGrow: 0 }}
+                contentContainerStyle={styles.filtersContainer}
+            >
+                {filters.map(filter => {
+                    const isActive = activeFilter === filter.value;
+                    return (
+                        <TouchableOpacity
+                            key={String(filter.value)}
+                            activeOpacity={0.75}
+                            onPress={() => setActiveFilter(filter.value)}
+                            style={[
+                                styles.filterChip,
+                                { backgroundColor: isActive ? filter.activeBg : filter.bg },
+                            ]}
+                        >
+                            <Text style={[
+                                styles.filterChipText,
+                                { color: isActive ? '#FFFFFF' : filter.text },
+                            ]}>
+                                {filter.label}
+                            </Text>
+                        </TouchableOpacity>
+                    );
+                })}
+            </ScrollView>
+
             {/* EMPTY STATE */}
 
             {patients.length === 0 ? (
 
                 <View style={styles.emptyContainer}>
-
                     <Text style={styles.emptyText}>
                         Nenhum paciente cadastrado
                     </Text>
+                </View>
 
+            ) : filteredPatients.length === 0 ? (
+
+                <View style={styles.emptyContainer}>
+                    <Text style={styles.emptyText}>
+                        Nenhum paciente nesta categoria
+                    </Text>
                 </View>
 
             ) : (
 
                 <FlatList
-                    data={patients}
+                    data={filteredPatients}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={renderPatient}
                     showsVerticalScrollIndicator={false}

@@ -211,6 +211,9 @@ export default function AssessmentRegisterScreen() {
                     keyboardShouldPersistTaps="handled"
                 >
                     <View style={styles.header}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                            <Text style={styles.backButtonText}>← Voltar</Text>
+                        </TouchableOpacity>
                         <Text style={styles.title}>Cadastro de Avaliações</Text>
                         <Text style={styles.subtitle}>Preencha os dados da avaliação</Text>
                     </View>

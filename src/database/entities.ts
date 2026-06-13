@@ -3,6 +3,7 @@ export type Patient = {
     name: string;
     age: number;
     gender: string;
+    last_risk_level: string | null;
 };
 
 export type Drug = {
@@ -16,6 +17,8 @@ export type Assessment = {
     id: number;
     patient_id: number;
     created_at: string;
+    risk_level: string;
+    risk_reason: string;
 }
 
 export type AssessmentDrug = {
@@ -48,5 +51,7 @@ export type AssessmentDrugDetail = {
 export type AssessmentWithDrugs = {
     id: number;
     created_at: string;
+    risk_level: string;
+    risk_reason: string;
     drugs: AssessmentDrugDetail[];
 };

@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     /* FUNDO GERAL MAIS SUAVE */
     container: {
         flexGrow: 1,
-        backgroundColor: '#d7e8fa',
+        backgroundColor: '#F5F7FA',
         paddingHorizontal: 20,
         paddingTop: 60,
         paddingBottom: 40,
@@ -14,6 +14,16 @@ const styles = StyleSheet.create({
     /* HEADER LIMPO E PROFISSIONAL */
     header: {
         marginBottom: 28,
+    },
+
+    backButton: {
+        marginBottom: 8,
+    },
+
+    backButtonText: {
+        fontSize: 15,
+        color: '#2563EB',
+        fontWeight: '500',
     },
 
     title: {
@@ -32,7 +42,7 @@ const styles = StyleSheet.create({
 
     /* CARD MAIS LEVE (MENOS SOMBRA) */
     form: {
-        backgroundColor: '#bbdafa',
+        backgroundColor: '#F5F7FA',
         borderRadius: 20,
         padding: 20,
 
@@ -60,10 +70,10 @@ const styles = StyleSheet.create({
     input: {
         height: 52,
         borderWidth: 1,
-        borderColor: '#e3eefa',
+        borderColor: '#CBD5E1',
         borderRadius: 14,
         paddingHorizontal: 14,
-        backgroundColor: '#e3eefa',
+        backgroundColor: '#F5F7FA',
         fontSize: 15,
         color: '#0F172A',
     },
@@ -85,15 +95,20 @@ const styles = StyleSheet.create({
         height: 52,
         borderRadius: 14,
         borderWidth: 1,
-        borderColor: '#e3eefa',
-        backgroundColor: '#e3eefa',
+        borderColor: '#CBD5E1',
+        backgroundColor: '#F5F7FA',
         justifyContent: 'center',
         alignItems: 'center',
     },
 
-    genderButtonSelected: {
-        backgroundColor: '#EFF6FF',
+    genderButtonMale: {
+        backgroundColor: '#DBEAFE',
         borderColor: '#2563EB',
+    },
+
+    genderButtonFemale: {
+        backgroundColor: '#FCE7F3',
+        borderColor: '#EC4899',
     },
 
     genderText: {
@@ -102,8 +117,12 @@ const styles = StyleSheet.create({
         color: '#475569',
     },
 
-    genderTextSelected: {
+    genderTextMale: {
         color: '#2563EB',
+    },
+
+    genderTextFemale: {
+        color: '#DB2777',
     },
 
     /* BOTÃO PRINCIPAL (AZUL MAIS SUAVE) */
