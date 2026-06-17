@@ -40,7 +40,7 @@ export default function PatientListScreen() {
         { label: 'Verde', value: 'green', bg: '#DCFCE7', text: '#15803D', activeBg: '#16A34A' },
         { label: 'Amarelo', value: 'yellow', bg: '#FEF9C3', text: '#A16207', activeBg: '#CA8A04' },
         { label: 'Vermelho', value: 'red', bg: '#FEE2E2', text: '#B91C1C', activeBg: '#DC2626' },
-        { label: 'Sem avaliação', value: 'none', bg: '#F1F5F9', text: '#64748B', activeBg: '#475569' },
+        { label: 'Sem avaliação', value: 'none', bg: '#dddedeff', text: '#64748B', activeBg: '#475569' },
     ];
 
     const navigation = useNavigation<
@@ -213,7 +213,7 @@ export default function PatientListScreen() {
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                style={{ flexGrow: 0 }}
+                style={{ flexGrow: 0, alignSelf: 'flex-start' }}
                 contentContainerStyle={styles.filtersContainer}
             >
                 {filters.map(filter => {
