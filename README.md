@@ -1,83 +1,108 @@
-## Prints das Telas do aplicativo v1
+# Triagem de Fármacos
 
-- Inserido tela de Login
+Aplicativo mobile para **triagem e avaliação de risco de interações medicamentosas** em pacientes. A partir dos medicamentos cadastrados em cada avaliação, o app classifica o paciente em um nível de risco (🟢 Verde, 🟡 Amarelo ou 🔴 Vermelho), auxiliando o profissional de saúde na identificação de combinações potencialmente perigosas (como síndrome serotoninérgica, depressão do SNC e dependência).
 
-![alt text](assets/prints/TelaLogin1.jpeg)
+Projeto desenvolvido para a **Universidade do Vale do Sapucaí (UNIVAS)**.
 
----
+## Integrantes da equipe
 
-- Inserido tela de Login preenchida
+- Eduardo Abrão
+- Gabriel Rufino
+- Guilherme Henrique
+- Jean Souza
 
-![alt text](assets/prints/TelaLogin2.jpeg)
+## Descrição do aplicativo
 
----
+O **Triagem de Fármacos** é um app construído em React Native (Expo) que permite:
 
-- Inserido Pagina inicial
+- **Autenticação** de usuários (tela de login).
+- **Cadastro de pacientes**, com dados pessoais e sexo.
+- **Listagem de pacientes**, com badge do último risco avaliado e filtro por nível de risco.
+- **Criação de avaliações**, associando medicamentos a um paciente, com seleção de data, marcação de uso contínuo e leitura por câmera.
+- **Classificação automática de risco** das avaliações com base nos grupos de risco dos medicamentos (serotoninérgico, sedativo, adrenérgico e dependência).
+- **Histórico de avaliações** por paciente.
 
-![alt text](assets/prints/PaginaInicial.jpeg)
+Os dados são persistidos localmente no dispositivo usando **SQLite** (`expo-sqlite`).
 
----
+### Tecnologias principais
 
-- Inserido tela Lista de Pacientes
+- [React Native](https://reactnative.dev/) `0.81` + [React](https://react.dev/) `19`
+- [Expo](https://expo.dev/) `54`
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Navigation](https://reactnavigation.org/) (native stack)
+- [expo-sqlite](https://docs.expo.dev/versions/latest/sdk/sqlite/) — banco de dados local
+- [expo-camera](https://docs.expo.dev/versions/latest/sdk/camera/) e [expo-notifications](https://docs.expo.dev/versions/latest/sdk/notifications/)
 
-![alt text](assets/prints/ListaPacientes.jpeg)
+## Como rodar o projeto
 
----
+### Pré-requisitos
 
-- Tela de Cadastro de pacientes
+- [Node.js](https://nodejs.org/) (versão LTS recomendada) e npm
+- [Expo CLI](https://docs.expo.dev/more/expo-cli/) (executado via `npx`, não precisa instalar globalmente)
+- Para rodar no celular: aplicativo **Expo Go** (Android/iOS) — ou um emulador Android / simulador iOS configurado
 
-![alt text](assets/prints/cadastro_paciente.jpeg)
+### Instalação
 
----
+```bash
+# 1. Clone o repositório
+git clone https://github.com/UmbrellaCorpBr/triagem-farmacos-front.git
+cd triagem-farmacos-front
 
-- Tela de Cadastro de pacientes (Masculino)
+# 2. Instale as dependências
+npm install
+```
 
-![alt text](assets/prints/cadastro_paciente_masc.jpeg)
+### Executando
 
----
+```bash
+# Inicia o servidor de desenvolvimento do Expo
+npm start
+```
 
-- Tela de Cadastro de pacientes (Feminino)
+Em seguida, leia o QR Code com o app **Expo Go** ou escolha uma das plataformas:
 
-![alt text](assets/prints/cadastro_paciente_fem.jpeg)
+```bash
+npm run android   # abre no emulador/dispositivo Android
+npm run ios       # abre no simulador iOS (macOS)
+npm run web       # abre no navegador
+```
 
----
+## Prints das telas implementadas
 
-- Form para cadastro de avaliações
+### Login
 
-![alt text](assets/prints/form_avaliacao.png)
+| Tela de Login | Login preenchido |
+|:---:|:---:|
+| ![Tela de Login](assets/prints/TelaLogin1.jpeg) | ![Login preenchido](assets/prints/TelaLogin2.jpeg) |
 
----
+### Página inicial
 
-- Selecionar paciente no medicamento
+![Página inicial](assets/prints/PaginaInicial.jpeg)
 
-![alt text](assets/prints/selecionar_paciente_medicamento.png)
+### Pacientes
 
----
+| Lista de pacientes | Cadastro de paciente |
+|:---:|:---:|
+| ![Lista de pacientes](assets/prints/ListaPacientes.jpeg) | ![Cadastro de paciente](assets/prints/cadastro_paciente.jpeg) |
 
-- Selecionar medicamento
+| Cadastro (Masculino) | Cadastro (Feminino) |
+|:---:|:---:|
+| ![Cadastro masculino](assets/prints/cadastro_paciente_masc.jpeg) | ![Cadastro feminino](assets/prints/cadastro_paciente_fem.jpeg) |
 
-![alt text](assets/prints/selecionar_medicamento.png)
+### Avaliações e medicamentos
 
----
+| Formulário de avaliação | Selecionar paciente |
+|:---:|:---:|
+| ![Formulário de avaliação](assets/prints/form_avaliacao.png) | ![Selecionar paciente](assets/prints/selecionar_paciente_medicamento.png) |
 
-- Calendário na parte de cadastro do medicamento
+| Selecionar medicamento | Calendário do medicamento |
+|:---:|:---:|
+| ![Selecionar medicamento](assets/prints/selecionar_medicamento.png) | ![Calendário](assets/prints/calendario_medicamento.png) |
 
-![alt text](assets/prints/calendario_medicamento.png)
+| Confirmar uso contínuo | Medicamento cadastrado |
+|:---:|:---:|
+| ![Uso contínuo](assets/prints/confirmar_uso_continuo.png) | ![Medicamento cadastrado](assets/prints/medicamento_cadastrado.png) |
 
----
+### Histórico de avaliações do paciente
 
-- Confirmar uso contínuo do medicamento
-
-![alt text](assets/prints/confirmar_uso_continuo.png)
-
----
-
-- Medicamento cadastrado do paciente
-
-![alt text](assets/prints/medicamento_cadastrado.png)
-
----
-
-- Avaliações do paciente
-
-![alt text](assets/prints/avaliacoes_paciente.png)
+![Avaliações do paciente](assets/prints/avaliacoes_paciente.png)
