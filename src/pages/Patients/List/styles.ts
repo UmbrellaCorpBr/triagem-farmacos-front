@@ -210,11 +210,14 @@ export const createStyles = (theme: Theme) =>
             flexDirection: 'row',
             gap: 8,
             paddingBottom: 16,
+            paddingVertical: 4,
+            alignItems: 'center'
         },
 
         filterChip: {
+            height: 30,
+            paddingVertical: 6,
             paddingHorizontal: 16,
-            paddingVertical: 5,
             borderRadius: 999,
         },
 
